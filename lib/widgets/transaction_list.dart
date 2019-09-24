@@ -18,14 +18,9 @@ class TransactionList extends StatelessWidget {
     );
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: 500,
-      child: transactions.isEmpty ? _listEmpty(context) : ListView.builder(
-        itemBuilder: (ctx, index) {
-          Transaction tx = transactions[index];
-          return Card(
+  Widget _listItem(context, i){
+    Transaction tx = transactions[i];
+          return (Card(
             child: Row(
               children: <Widget>[
                 Container(
@@ -58,7 +53,33 @@ class TransactionList extends StatelessWidget {
                 )
               ],
             ),
-          );
+          ));
+  }
+
+  Widget _listItem2(ctx, i){
+    Transaction tx = transactions[i];
+
+    return ListTile(
+        leading: CircleAvatar(
+          radius: 30,
+          child: Padding(
+            padding: EdgeInsets.all(6), 
+            child: FittedBox(child: Text('\$${tx.amount}'),),),
+        ),
+        title: Text(tx.title, style: Theme.of(ctx).textTheme.title,),
+        subtitle: Text(DateFormat.yMMM().format(tx.date) ),
+    );
+  }
+  
+  
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 500,
+      child: transactions.isEmpty ? _listEmpty(context) : ListView.builder(
+        itemBuilder: (ctx, i) {
+          //return _listItem(ctx, i);
+          return _listItem2(ctx, i);
         },
         itemCount: transactions.length,
         scrollDirection: Axis.vertical,
