@@ -11,7 +11,11 @@ class MyApp extends StatelessWidget {
     return new MaterialApp(
       title: 'Mehmet',
       home: new HomeScreen(),
-      theme: ThemeData(primarySwatch: Colors.purple, accentColor: Colors.amber),
+      theme: ThemeData(
+        primarySwatch: Colors.purple, 
+        accentColor: Colors.amber,
+        fontFamily: 'Quicksand'
+        ),
     );
   }
 }
@@ -23,11 +27,11 @@ class HomeScreen extends StatefulWidget {
 
 class _MyAppState extends State<HomeScreen> {
   final List<Transaction> _transactions = [
-    Transaction(
-        id: 't1', title: 'New Shoes', amount: 69.99, date: DateTime.now()),
-    Transaction(id: 't2', title: 'Dinner', amount: 22.34, date: DateTime.now()),
-    Transaction(
-        id: 't3', title: 'Market', amount: 101.50, date: DateTime.now()),
+    // Transaction(
+    //     id: 't1', title: 'New Shoes', amount: 69.99, date: DateTime.now()),
+    // Transaction(id: 't2', title: 'Dinner', amount: 22.34, date: DateTime.now()),
+    // Transaction(
+    //     id: 't3', title: 'Market', amount: 101.50, date: DateTime.now()),
   ];
 
   void _adNewTransaction(String title, double amount) {
