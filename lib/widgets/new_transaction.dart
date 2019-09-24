@@ -23,7 +23,6 @@ class _NewTransactionState extends State<NewTransaction> {
 
     widget.addHandler(
         titleController.text, double.parse(amountController.text));
-
         Navigator.of(context).pop();
   }
 
@@ -53,7 +52,7 @@ class _NewTransactionState extends State<NewTransaction> {
             FlatButton(
               child: Text('Add Transaction'),
               onPressed: submitData,
-              textColor: Colors.purple,
+               textColor: Colors.purple,
             )
           ],
         ),

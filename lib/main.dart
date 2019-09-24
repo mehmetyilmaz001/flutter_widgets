@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_widgets/widgets/chart.dart';
 import './widgets/new_transaction.dart';
 import './widgets/transaction_list.dart';
 import './models/transaction.dart';
@@ -27,12 +28,19 @@ class HomeScreen extends StatefulWidget {
 
 class _MyAppState extends State<HomeScreen> {
   final List<Transaction> _transactions = [
-    // Transaction(
-    //     id: 't1', title: 'New Shoes', amount: 69.99, date: DateTime.now()),
-    // Transaction(id: 't2', title: 'Dinner', amount: 22.34, date: DateTime.now()),
-    // Transaction(
-    //     id: 't3', title: 'Market', amount: 101.50, date: DateTime.now()),
+    Transaction(
+        id: 't1', title: 'New Shoes', amount: 69.99, date: DateTime.now()),
+    Transaction(id: 't2', title: 'Dinner', amount: 22.34, date: DateTime.now()),
+    Transaction(
+        id: 't3', title: 'Market', amount: 101.50, date: DateTime.now()),
   ];
+
+  List<Transaction> get _recentTransactions {
+    return _transactions.where((tx){
+      //Get last 7 days records
+      return tx.date.isAfter(DateTime.now().subtract(Duration(days: 7)));
+    }).toList();
+  }
 
   void _adNewTransaction(String title, double amount) {
     final newItem = Transaction(
@@ -81,14 +89,7 @@ class _MyAppState extends State<HomeScreen> {
           crossAxisAlignment:
               CrossAxisAlignment.stretch, //horizontal aligment for column
           children: <Widget>[
-            Container(
-              width: double.infinity,
-              child: Card(
-                color: Colors.blue,
-                child: Text('Chart'),
-                elevation: 5,
-              ),
-            ),
+            Chart(_recentTransactions),
             TransactionList(_transactions)
           ],
         ),
