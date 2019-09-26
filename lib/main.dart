@@ -142,7 +142,7 @@ class _MyAppState extends State<HomeScreen> {
                     height: (MediaQuery.of(context).size.height -
                             appBar.preferredSize.height -
                             MediaQuery.of(context).padding.top) *
-                        0.7,
+                        0.3,
                     child: Chart(_recentTransactions))
                 : Container(),
             Container(
@@ -156,12 +156,8 @@ class _MyAppState extends State<HomeScreen> {
       ),
     );
 
-    return Platform.isIOS
-        ? CupertinoPageScaffold(
-            child: pageBody,
-            navigationBar: appBar,
-          )
-        : Scaffold(
+    return 
+       Scaffold(
             appBar: appBar,
             floatingActionButtonLocation:
                 FloatingActionButtonLocation.centerFloat,
