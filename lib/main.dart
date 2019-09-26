@@ -14,18 +14,15 @@ class MyApp extends StatelessWidget {
       title: 'Mehmet',
       home: new HomeScreen(),
       theme: ThemeData(
-        primarySwatch: Colors.purple, 
-        accentColor: Colors.amber,
-        fontFamily: 'Quicksand',
-        textTheme: ThemeData.light().textTheme.copyWith(
-          title: TextStyle(
-            fontFamily: 'OpenSans',
-            fontWeight: FontWeight.bold,
-            fontSize: 18
-          ),
-          button: TextStyle(color: Colors.white)
-        )
-        ),
+          primarySwatch: Colors.purple,
+          accentColor: Colors.amber,
+          fontFamily: 'Quicksand',
+          textTheme: ThemeData.light().textTheme.copyWith(
+              title: TextStyle(
+                  fontFamily: 'OpenSans',
+                  fontWeight: FontWeight.bold,
+                  fontSize: 18),
+              button: TextStyle(color: Colors.white))),
     );
   }
 }
@@ -45,7 +42,7 @@ class _MyAppState extends State<HomeScreen> {
   ];
 
   List<Transaction> get _recentTransactions {
-    return _transactions.where((tx){
+    return _transactions.where((tx) {
       //Get last 7 days records
       return tx.date.isAfter(DateTime.now().subtract(Duration(days: 7)));
     }).toList();
@@ -63,7 +60,7 @@ class _MyAppState extends State<HomeScreen> {
     });
   }
 
-  void _deleteTransaction(String id){
+  void _deleteTransaction(String id) {
     setState(() {
       _transactions.removeWhere((tx) => tx.id == id);
     });
@@ -82,16 +79,17 @@ class _MyAppState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final appBar = AppBar(
+      title: Text('Mehmet Flutter Widget Workout'),
+      actions: <Widget>[
+        IconButton(
+          icon: Icon(Icons.add),
+          onPressed: () => _openNewTransaction(context),
+        )
+      ],
+    );
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Mehmet Flutter Widget Workout'),
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(Icons.add),
-            onPressed: () => _openNewTransaction(context),
-          )
-        ],
-      ),
+      appBar: appBar,
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
@@ -104,8 +102,16 @@ class _MyAppState extends State<HomeScreen> {
           crossAxisAlignment:
               CrossAxisAlignment.stretch, //horizontal aligment for column
           children: <Widget>[
-            Chart(_recentTransactions),
-            TransactionList(_transactions, _deleteTransaction)
+            Container(
+                height: (MediaQuery.of(context).size.height -
+                        appBar.preferredSize.height - MediaQuery.of(context).padding.top) *
+                    0.2,
+                child: Chart(_recentTransactions)),
+            Container(
+                height: (MediaQuery.of(context).size.height -
+                        appBar.preferredSize.height - MediaQuery.of(context).padding.top) *
+                    0.4,
+                child: TransactionList(_transactions, _deleteTransaction))
           ],
         ),
       ),

@@ -29,42 +29,6 @@ class TransactionList extends StatelessWidget {
     );
   }
 
-  Widget _listItem(context, i) {
-    Transaction tx = transactions[i];
-    return (Card(
-      child: Row(
-        children: <Widget>[
-          Container(
-            margin: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
-            decoration: BoxDecoration(
-                border: Border.all(
-                    color: Theme.of(context).primaryColor, width: 1)),
-            padding: EdgeInsets.all(10),
-            child: Text('\$${tx.amount.toStringAsFixed(2)}',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 17,
-                  color: Theme.of(context).primaryColor,
-                )),
-          ),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Text(
-                tx.title,
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-              ),
-              Text(
-                DateFormat('dd.mm.yyyy H:s').format(tx.date),
-                style: TextStyle(color: Colors.grey),
-              ),
-            ],
-          )
-        ],
-      ),
-    ));
-  }
 
   Widget _listItem2(ctx, i) {
     Transaction tx = transactions[i];
