@@ -39,7 +39,7 @@ class HomeScreen extends StatefulWidget {
   _MyAppState createState() => _MyAppState();
 }
 
-class _MyAppState extends State<HomeScreen> {
+class _MyAppState extends State<HomeScreen> with WidgetsBindingObserver {
   bool _showChart = false;
 
   final List<Transaction> _transactions = [
@@ -55,6 +55,23 @@ class _MyAppState extends State<HomeScreen> {
       //Get last 7 days records
       return tx.date.isAfter(DateTime.now().subtract(Duration(days: 7)));
     }).toList();
+  }
+
+  @override
+  void initState() {
+    WidgetsBinding.instance.addObserver(this);
+    super.initState();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    print(state);
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
   }
 
   void _adNewTransaction(String title, double amount, DateTime date) {
@@ -156,17 +173,15 @@ class _MyAppState extends State<HomeScreen> {
       ),
     );
 
-    return 
-       Scaffold(
-            appBar: appBar,
-            floatingActionButtonLocation:
-                FloatingActionButtonLocation.centerFloat,
-            floatingActionButton: Platform.isIOS
-                ? Container()
-                : FloatingActionButton(
-                    child: Icon(Icons.add),
-                    onPressed: () => _openNewTransaction(context),
-                  ),
-            body: pageBody);
+    return Scaffold(
+        appBar: appBar,
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+        floatingActionButton: Platform.isIOS
+            ? Container()
+            : FloatingActionButton(
+                child: Icon(Icons.add),
+                onPressed: () => _openNewTransaction(context),
+              ),
+        body: pageBody);
   }
 }
